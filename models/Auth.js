@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const pg = require("../helpers/connect_db");
 const queryAuth = require("../helpers/queryAuth");
 const jwt = require("jsonwebtoken");
+const { request } = require("express");
 
 const authModel = {
   login: (request) => {
@@ -71,7 +72,7 @@ const authModel = {
 
   register: (request) => {
     return new Promise((resolve, reject) => {
-      const { email, password } = request;
+      const { email, password } = request.request;
       pg.query(
         `SELECT email FROM users WHERE email = '${email}'`,
         (err, value) => {
@@ -80,7 +81,7 @@ const authModel = {
               bcrypt.hash(password, 10, function (errHash, hash) {
                 if (!errHash) {
                   const newUser = {
-                    ...request,
+                    email: email,
                     password: hash,
                   };
                   const query = queryAuth.register(newUser);
@@ -110,6 +111,34 @@ const authModel = {
                 statusCode: 400,
               });
             }
+          }
+        }
+      );
+    });
+  },
+
+  checkUser: (request) => {
+    return new Promise((resolve, reject) => {
+      pg.query(
+        `SELECT id from users WHERE email = '${request.email}'`,
+        (err, response) => {
+          if (!err) {
+            if (response.rows.length < 1) {
+              resolve({
+                message: "Please check email to activated your account",
+                statusCode: 200,
+              });
+            } else {
+              reject({
+                message: "User Exist",
+                statusCode: 400,
+              });
+            }
+          } else {
+            reject({
+              message: "Register failed",
+              statusCode: 500,
+            });
           }
         }
       );
