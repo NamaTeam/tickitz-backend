@@ -8,7 +8,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const router = require("./routes");
-const pg = require("./helpers/connect_db");
 router(app, "/tickitz/api");
 
 app.get("*", (req, res) => {
