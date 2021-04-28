@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const authController = require("../controllers/Auth");
 
-router.get("/", (req, res) => {
-  res.send("Ini auth");
-});
+router.post("/Login", authController.login);
+
+router.post("/register", authController.register);
 
 module.exports = router;
