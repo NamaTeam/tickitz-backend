@@ -1,10 +1,14 @@
 const authModel = require("../models/Auth");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const mailgun = require("mailgun-js");
-const mg = mailgun({
-  apiKey: process.env.MAILGUN_KEY,
-  domain: process.env.MAILGUN_DOMAIN,
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: process.env.MAILTRAP_HOST,
+  port: process.env.MAILTRAP_PORT,
+  auth: {
+    user: process.env.MAILTRAP_USERNAME,
+    pass: process.env.MAILTRAP_PASSWORD,
+  },
 });
 
 const authController = {
@@ -32,7 +36,7 @@ const authController = {
         statusCode: 400,
       });
     } else {
-      jwt.verify(token, process.env.MAILGUN_SECRET_KEY, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_NODEMAILER_KEY, (err, decoded) => {
         if (err) {
           res.status(400).send({
             message: "Incorrect or Expired token",
@@ -63,28 +67,31 @@ const authController = {
     }
     try {
       const result = await authModel.checkUser(req.body);
-      const token = jwt.sign({ request }, process.env.MAILGUN_SECRET_KEY, {
+      const token = jwt.sign({ request }, process.env.JWT_NODEMAILER_KEY, {
         expiresIn: "20m",
       });
-      const data = {
-        from: "Trickitz Admin <no-reply@admin.tickitz.com>",
-        to: req.body.email,
-        subject: "Account Activation Token",
-        text: token,
-      };
-      mg.messages().send(data, function (error) {
-        if (error) {
-          console.log(error, "mailgun");
+      transporter
+        .sendMail({
+          from: "Trickitz Admin <no-reply@admin.tickitz.com>", // sender address
+          to: request.email, // list of receivers
+          subject: "Account Activation Token", // Subject line
+          text: token, // plain text body
+          html: `
+            <h1>Copy the token to activated your account</h1>
+            <h3>${token}</h3>
+          `, // html body
+        })
+        .then(() => {
+          res.status(result.statusCode).send({
+            ...result,
+          });
+        })
+        .catch(() => {
           res.status(500).send({
             message: "Register error",
             statusCode: 500,
           });
-          return;
-        }
-        res.status(result.statusCode).send({
-          ...result,
         });
-      });
     } catch (err) {
       res.status(err.statusCode).send(err);
     }
@@ -94,28 +101,31 @@ const authController = {
     const email = req.body.email;
     try {
       const result = await authModel.checkUser(email);
-      const token = jwt.sign({ ...req.body }, process.env.MAILGUN_SECRET_KEY, {
+      const token = jwt.sign({ ...req.body }, process.env.JWT_NODEMAILER_KEY, {
         expiresIn: "20m",
       });
-      const data = {
-        from: "Trickitz Admin <no-reply@admin.tickitz.com>",
-        to: req.body.email,
-        subject: "Confirm your email",
-        text: token,
-      };
-      mg.messages().send(data, function (error) {
-        if (error) {
-          console.log(error, "mailgun");
+      transporter
+        .sendMail({
+          from: "Trickitz Admin <no-reply@admin.tickitz.com>", // sender address
+          to: email, // list of receivers
+          subject: "Confirm your email", // Subject line
+          text: token, // plain text body
+          html: `
+            <h1>Copy the token to change your password</h1>
+            <h3>${token}</h3>
+          `, // html body
+        })
+        .then(() => {
+          res.status(result.statusCode).send({
+            ...result,
+          });
+        })
+        .catch(() => {
           res.status(500).send({
             message: "Error occurs",
             statusCode: 500,
           });
-          return;
-        }
-        res.status(result.statusCode).send({
-          ...result,
         });
-      });
     } catch (err) {
       res.status(err.statusCode).send(err);
     }
@@ -129,7 +139,7 @@ const authController = {
         statusCode: 400,
       });
     } else {
-      jwt.verify(token, process.env.MAILGUN_SECRET_KEY, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_NODEMAILER_KEY, (err) => {
         if (err) {
           res.status(400).send({
             message: "Incorrect or Expired token",
