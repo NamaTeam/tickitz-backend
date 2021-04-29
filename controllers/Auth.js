@@ -2,7 +2,6 @@ const authModel = require("../models/Auth");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const mailgun = require("mailgun-js");
-const DOMAIN = "sandbox439064f0fe104fe495123e9c9ecbecd1.mailgun.org";
 const mg = mailgun({
   apiKey: process.env.MAILGUN_KEY,
   domain: process.env.MAILGUN_DOMAIN,
