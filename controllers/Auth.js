@@ -3,7 +3,10 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox439064f0fe104fe495123e9c9ecbecd1.mailgun.org";
-const mg = mailgun({ apiKey: process.env.MAILGUN_KEY, domain: DOMAIN });
+const mg = mailgun({
+  apiKey: process.env.MAILGUN_KEY,
+  domain: process.env.MAILGUN_DOMAIN,
+});
 
 const authController = {
   login: async (req, res) => {
@@ -30,7 +33,7 @@ const authController = {
         statusCode: 400,
       });
     } else {
-      jwt.verify(token, "tickitzactivation123", (err, decoded) => {
+      jwt.verify(token, process.env.MAILGUN_SECRET_KEY, (err, decoded) => {
         if (err) {
           res.status(400).send({
             message: "Incorrect or Expired token",
@@ -61,7 +64,7 @@ const authController = {
     }
     try {
       const result = await authModel.checkUser(req.body);
-      const token = jwt.sign({ request }, "tickitzactivation123", {
+      const token = jwt.sign({ request }, process.env.MAILGUN_SECRET_KEY, {
         expiresIn: "20m",
       });
       const data = {
@@ -92,7 +95,7 @@ const authController = {
     const email = req.body.email;
     try {
       const result = await authModel.checkUser(email);
-      const token = jwt.sign({ ...req.body }, "tickitzactivation123", {
+      const token = jwt.sign({ ...req.body }, process.env.MAILGUN_SECRET_KEY, {
         expiresIn: "20m",
       });
       const data = {
@@ -127,7 +130,7 @@ const authController = {
         statusCode: 400,
       });
     } else {
-      jwt.verify(token, "tickitzactivation123", (err, decoded) => {
+      jwt.verify(token, process.env.MAILGUN_SECRET_KEY, (err, decoded) => {
         if (err) {
           res.status(400).send({
             message: "Incorrect or Expired token",
