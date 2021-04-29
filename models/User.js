@@ -1,27 +1,23 @@
-const pg = require("../helpers/connect_db")
+const pg = require("../helpers/connect_db");
+const fromResponse = require("../helpers/fromResponse");
 
 const UserModel = {
-    getUserById: (req) =>{
-        console.log(req)
-        return new Promise((resolve, reject)=>{
-            pg.query(`SELECT id,email,username,first_name,last_name,phone,photo FROM users WHERE id=${parseInt(req)}`, (err, result)=>{
-                console.log(err,"ini errornya ")
-                if(!err){
-                    resolve({
-                        message:`get users succsess`,
-                        statusCode:200,
-                        data:result.rows[0]
-                    });
-                }else{
-                    reject({
-                        message:`get users failed`,
-                        statusCode:500,
-                        data:{},
-                    })
-                }
-            })
-        })
-    },
-}
+  getUserById: (request) => {
+    return new Promise((resolve, reject) => {
+      pg.query(
+        `SELECT id,email,username,first_name,last_name,phone,photo FROM users WHERE id=${parseInt(
+          request
+        )}`,
+        (err, result) => {
+          if (!err) {
+            resolve(fromResponse("Get user success", 200, result.rows[0]));
+          } else {
+            reject(fromResponse("Get user failed", 500));
+          }
+        }
+      );
+    });
+  },
+};
 
-module.exports=UserModel
+module.exports = UserModel;

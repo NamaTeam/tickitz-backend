@@ -1,7 +1,14 @@
-const fromResponse = (message, res)=>{
-    res 
-    .status(message?.status ?? 200)
-    .send(message ?? {message:"not exsist", data:[]})
-}
+const fromResponse = (message, status, result) => {
+  return result !== null
+    ? {
+        message: message,
+        statusCode: status,
+        data: result,
+      }
+    : {
+        message: message,
+        statusCode: status,
+      };
+};
 
-module.exports=fromResponse
+module.exports = fromResponse;
