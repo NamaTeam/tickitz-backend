@@ -46,7 +46,7 @@ const authController = {
           authModel
             .register(decoded)
             .then((result) => {
-              res.status(result.statusCode).send(result);
+              res.status(result.statusCode).send({ ...result, decoded });
             })
             .catch((err) => {
               res.status(err.statusCode).send(err);
