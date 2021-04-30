@@ -45,6 +45,8 @@ const authModel = {
                         }
                       }
                     );
+                  } else {
+                    reject(fromResponse("Wrong email/password", 400));
                   }
                 } else {
                   reject(fromResponse("Login failed", 500));
