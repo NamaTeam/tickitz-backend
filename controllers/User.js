@@ -2,14 +2,14 @@ const fromResponse = require("../helpers/fromResponse")
 const UserModel = require("../models/User")
 
 const userController = {
-    getAllUser:(req,res)=>{
+    getAllUsers:(req,res)=>{
         UserModel
         .getAllUsers(req)
         .then((result)=>{
-            fromResponse(result, res)
+            res.status(result.statusCode).send(result)
         })
         .catch((err)=>{
-            fromResponse(err, res)
+            res.status(err.statusCode).send(err)
         })
     },
 
@@ -17,10 +17,10 @@ const userController = {
         UserModel
         .getUserById(req.params.id)
         .then((result)=>{
-            fromResponse(result, res)
+            res.status(result.statusCode).send(result)
         })
         .catch((err)=>{
-            fromResponse(err)
+            res.status(err.statusCode).send(err)
         })
     },
 
@@ -28,22 +28,21 @@ const userController = {
         UserModel
         .deleteUserById(req.params.id)
         .then((result)=>{
-            fromResponse(result, res)
+            res.status(result.statusCode).send(result)
         })
         .catch((err)=>{
-            fromResponse(err, res)
+            res.status(err.statusCode).send(err)
         })
     },
 
-    addUsers:(req , res)=>{
-        console.log(req, 'ini controller')
+    addNewUsers:(request , res)=>{
         UserModel
-        .addUsers(req)
+        .addNewUsers(request)
         .then((result)=>{
-            fromResponse(result, res)
+            res.status(result.statusCode).send(result)
         })
         .catch((err)=>{
-            fromResponse(err, res)
+            res.status(err.statusCode).send(err)
         })
     }
 }

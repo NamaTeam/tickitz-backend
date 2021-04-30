@@ -1,5 +1,4 @@
 const multer = require('multer')
-const fromResponse = require('./fromResponse')
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -20,15 +19,15 @@ const fromUpload={
         const uploadImage=upload.single('photo')
         uploadImage(req,res,(err)=>{
             if(err instanceof multer.MulterError){
-                fromResponse({
+                res.status(400).send({
                     message:err.message,
                     statusCode:400,
-                }, res)
+                })
             }else if(err){
-                fromResponse({
+                res.status(400).send({
                     message:err.message,
                     statusCode:400,
-                }, res)
+                })
             }else{
                 next()
             }
