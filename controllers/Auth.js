@@ -165,6 +165,31 @@ const authController = {
       });
     }
   },
+
+  changePassword: async (req, res) => {
+    if (!req.body.id || !req.body.password || !req.body.confirm) {
+      res.status(400).send({
+        message: 'Error when changing password',
+        statusCode: 400,
+      });
+      return;
+    } else if (req.body.password !== req.body.confirm) {
+      res.status(400).send({
+        message: 'Password doesn`t mate',
+        statusCode: 400,
+      });
+      return;
+    }
+    const request = {
+      ...req.body,
+    }
+    try {
+      const result = await authModel.changePassword(request);
+      res.status(result.statusCode).send(result);
+    } catch (err) {
+      res.status(err.statusCode).send(err);
+    }
+  }
 };
 
 module.exports = authController;

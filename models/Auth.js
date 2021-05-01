@@ -135,6 +135,34 @@ const authModel = {
       });
     });
   },
+
+  changePassword: (request) => {
+    return new Promise((resolve, reject) => {
+      pg.query(`SELECT id from users WHERE id = ${request.id}`, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse('User doesn`t exist', 400));
+            return;
+          }
+          bcrypt.hash(request.password, 10, function (errHash, hash) {
+            if (!errHash) {
+              pg.query(`UPDATE users SET password= '${hash}'`, (err) => {
+                if (!err) {
+                  resolve(fromResponse("Change password success", 201));
+                } else {
+                  reject(fromResponse("Change password failed", 500));
+                }
+              });
+            } else {
+              reject(fromResponse("Change password failed", 500));
+            }
+          });
+        } else {
+
+        }
+      })
+    })
+  },
 };
 
 module.exports = authModel;

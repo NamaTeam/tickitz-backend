@@ -12,4 +12,6 @@ router.post("/forgot-password", authController.forgotPassword);
 
 router.post("/forgot-password/email-verify", authController.emailVerified);
 
+router.post("/change-password", authController.changePassword)
+
 module.exports = router;
