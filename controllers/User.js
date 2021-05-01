@@ -44,6 +44,17 @@ const userController = {
         .catch((err)=>{
             res.status(err.statusCode).send(err)
         })
+    },
+
+    updateUser:(request , res)=>{
+        UserModel
+        .updateUser(request)
+        .then((result)=>{
+            res.status(result.statusCode).send(result)
+        })
+        .catch((err)=>{
+            res.status(err.statusCode).send(err)
+        })
     }
 }
 
