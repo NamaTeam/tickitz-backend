@@ -106,7 +106,7 @@ const authModel = {
               resolve(
                 fromResponse(
                   "Please check email to activated your account",
-                  200
+                  200,
                 )
               );
             } else {
@@ -117,6 +117,22 @@ const authModel = {
           }
         }
       );
+    });
+  },
+
+  changeResquest: (request) => {
+    return new Promise((resolve, reject) => {
+      pg.query(`SELECT id from users WHERE email = '${request.email}'`, (err, response) => {
+        if (!err) {
+          if (response.rows.length < 1) {
+            reject();
+            return;
+          }
+          resolve(response.rows[0].id);
+        } else {
+          reject();
+        };
+      });
     });
   },
 };

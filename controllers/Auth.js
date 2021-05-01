@@ -2,6 +2,7 @@ const authModel = require("../models/Auth");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const UserModel = require("../models/User");
 const transporter = nodemailer.createTransport({
   host: process.env.MAILTRAP_HOST,
   port: process.env.MAILTRAP_PORT,
@@ -139,17 +140,27 @@ const authController = {
         statusCode: 400,
       });
     } else {
-      jwt.verify(token, process.env.JWT_NODEMAILER_KEY, (err) => {
+      jwt.verify(token, process.env.JWT_NODEMAILER_KEY, (err, decoded) => {
         if (err) {
           res.status(400).send({
             message: "Incorrect or Expired token",
             statusCode: 400,
           });
         } else {
-          res.status(200).send({
-            message: "Email verified",
-            statusCode: 200,
-          });
+          authModel.changeResquest(decoded)
+            .then(result => {
+              res.status(200).send({
+                message: "Email verified",
+                statusCode: 200,
+                data: result,
+              });
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Error when verified email",
+                statusCode: 500,
+              })
+            })
         }
       });
     }
