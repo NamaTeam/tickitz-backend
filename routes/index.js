@@ -9,7 +9,7 @@ const routes = (app, prefix) => {
   // app.use(`${prefix}/...,`, fileRouter)
   app.use(`${prefix}/auth`, authRouter);
   app.use(`${prefix}/users`, userRouter);
-  app.use(`${prefix}/order`, orderRouter);
+  app.use(`${prefix}/orders`, orderRouter);
   app.use(`${prefix}/payment`, paymentRouter);
   app.use(`${prefix}/cinemas`, cinemasRouter);
   app.use(`${prefix}/movies`, moviesRouter);
