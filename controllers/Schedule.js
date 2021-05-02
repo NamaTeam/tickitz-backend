@@ -11,6 +11,16 @@ const scheduleController = {
     }
   },
 
+  getScheduleByCinemas: async (req, res) => {
+    const request = { id: req.params.id }
+    try {
+      const result = await scheduleModel.getScheduleByCinemas(request);
+      res.status(result.statusCode).send(result);
+    } catch (err) {
+      res.status(err.statusCode).send(err);
+    }
+  },
+
   // addSchedule: async (req, res) => {
   //   const request = {
   //     ...req.body,

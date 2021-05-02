@@ -20,6 +20,23 @@ const scheduleModel = {
     });
   },
 
+  getScheduleByCinemas: (request) => {
+    return new Promise((resolve, reject) => {
+      const query = querySchedule.getScheduleByCinemas(request.id);
+      pg.query(query, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse('Schedule empty', 400));
+            return;
+          }
+          resolve(fromResponse('Get schedule success', 200, result.rows));
+        } else {
+          reject(fromResponse('Get Schedule failed', 500));
+        }
+      });
+    });
+  },
+
   // addSchedule: (request) => {
   //   return new Promise((resolve, reject) => {
   //     const { movie_id, cinema_id, start } = request;

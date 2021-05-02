@@ -1,36 +1,35 @@
-const { request } = require("express")
+
 
 const queryUser = {
-    getAllUsers: ()=>{
+    getAllUsers: () => {
         const query = `SELECT id,email,username,first_name,last_name,phone,photo FROM users`;
         return query
     },
 
-    getUserById:(request)=>{
+    getUserById: (request) => {
         const id = request
-        console.log(id,"ini id")
-        const getUserbyid=`SELECT id,email,username,first_name,last_name,phone,photo FROM users WHERE id=${parseInt(id)}`
-    
-    
+        const getUserbyid = `SELECT id,email,username,first_name,last_name,phone,photo FROM users WHERE id=${parseInt(id)}`
+
+
         return getUserbyid
     },
 
-    addNewUser:(request)=>{
-        const {email} = request
-        const addNewUsers=`SELECT * FROM users WHERE email='${email}'`
-        
+    addNewUser: (request) => {
+        const { email } = request
+        const addNewUsers = `SELECT * FROM users WHERE email='${email}'`
+
         return addNewUsers
 
 
     },
 
-    deleteUserById:(request)=>{
-        const {id} = request
-        const deleteUserById=`DELETE FROM users WHERE id='${id}'`
+    deleteUserById: (request) => {
+        const { id } = request
+        const deleteUserById = `DELETE FROM users WHERE id='${id}'`
 
         return deleteUserById
     }
-    
+
 }
 
-module.exports=queryUser
+module.exports = queryUser
