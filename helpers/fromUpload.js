@@ -33,7 +33,9 @@ let storagePoster = multer.diskStorage({
   }
 })
 
-let uploadL = multer({ storage: storageLogo, storage: storagePoster, limits });
+let uploadL = multer({ storage: storageLogo, limits });
+
+let uploadP = multer({ storage: storagePoster, limits })
 
 const fromUpload = {
   uploadImage: (req, res, next) => {

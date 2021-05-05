@@ -42,15 +42,51 @@ const moviesModel = {
     });
   },
 
+  getMoviesNow: (request) => {
+    return new Promise((resolve, reject) => {
+      const query = queryMovies.getMoviesNow(request);
+      pg.query(query, (err, result) => {
+        console.log(err, "ini error");
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse("Movies not found", 400));
+            return
+          }
+          resolve(fromResponse("Get movies success", 200, result.rows));
+        } else {
+          reject(fromResponse("Get movies failed", 500));
+        }
+      });
+    });
+  },
+
+  getMoviesByMonth: (request) => {
+    return new Promise((resolve, reject) => {
+      const query = queryMovies.getMoviesByMonth(request);
+      pg.query(query, (err, result) => {
+        console.log(err, "ini error");
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse("Movies not found", 400));
+            return
+          }
+          resolve(fromResponse("Get movies success", 200, result.rows));
+        } else {
+          reject(fromResponse("Get movies failed", 500));
+        }
+      });
+    });
+  },
+
   addMovies: (request) => {
     return new Promise((resolve, reject) => {
-      const { category, title, synopsis, duration } = request;
-      if (!category || !title || !synopsis || !duration) {
-        reject(fromResponse("File not null", 400));
+      const { category, title, synopsis, duration, actors, poster, release_date } = request;
+      if (!category || !title || !synopsis || !duration || !actors || !poster || !release_date) {
+        reject(fromResponse("Field can't empty", 400));
         return;
       }
       pg.query(
-        `SELECT id from movies WHERE title = '${title}'`,
+        `SELECT id from movies WHERE title = '${title}' AND release_date = '${release_date}'`,
         (err, response) => {
           console.log(err, "test1");
           if (!err) {
