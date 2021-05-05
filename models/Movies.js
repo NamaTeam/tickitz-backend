@@ -60,6 +60,24 @@ const moviesModel = {
     });
   },
 
+  getUpcomingMovies: (request) => {
+    return new Promise((resolve, reject) => {
+      const query = queryMovies.getUpcomingMovies(request);
+      pg.query(query, (err, result) => {
+        console.log(err, "ini error");
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse("Movies not found", 400));
+            return
+          }
+          resolve(fromResponse("Get movies success", 200, result.rows));
+        } else {
+          reject(fromResponse("Get movies failed", 500));
+        }
+      });
+    });
+  },
+
   getMoviesByMonth: (request) => {
     return new Promise((resolve, reject) => {
       const query = queryMovies.getMoviesByMonth(request);
