@@ -26,6 +26,13 @@ const queryOrder = {
     return query;
   },
 
+  getOrderBySchedule: (request) => {
+    const query = `SELECT a.id, a.order_date, a.total_payment, a.status, a.seat from orders as a
+                  INNER JOIN schedule as b ON b.id = a.schedule_id WHERE a.schedule_id = ${request}`
+
+    return query;
+  },
+
   updateOrder: (request, initial) => {
     const { id, schedule_id = initial.schedule_id, status = initial.status, total_payment = initial.total_payment, seat } = request;
     const query = seat !== undefined ? `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}', seat = ${'ARRAY' + seat}, total_payment = ${total_payment} WHERE id = '${id}'` : `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}' WHERE id = '${id}'`

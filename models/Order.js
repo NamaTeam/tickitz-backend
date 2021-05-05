@@ -38,7 +38,6 @@ const OrderModel = {
     return new Promise((resolve, reject) => {
       const query = queryOrder.getOrderById(request);
       pg.query(query, (err, result) => {
-        console.log(err, 'test err');
         if (!err) {
           if (result.rows.length < 1) {
             reject(fromResponse('Order not found', 400));
@@ -47,6 +46,23 @@ const OrderModel = {
           resolve(fromResponse('Get order history', 200, result.rows[0]));
         } else {
           reject(fromResponse('Get order history failed', 500));
+        }
+      });
+    });
+  },
+
+  getOrderBySchedule: (request) => {
+    return new Promise((resolve, reject) => {
+      const query = queryOrder.getOrderBySchedule(request);
+      pg.query(query, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse('Order not found', 400));
+            return;
+          }
+          resolve(fromResponse('Get order success', 200, result.rows));
+        } else {
+          reject(fromResponse('Get order  failed', 500));
         }
       });
     });

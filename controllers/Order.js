@@ -32,6 +32,15 @@ const OrderController = {
     }
   },
 
+  getOrderBySchedule: async (req, res) => {
+    try {
+      const result = await orderModel.getOrderBySchedule(req.params.id);
+      res.status(result.statusCode).send(result);
+    } catch (err) {
+      res.status(err.statusCode).send(err);
+    }
+  },
+
   updateOrder: async (req, res) => {
     const request = {
       id: req.params.id,

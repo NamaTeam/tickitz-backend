@@ -4,6 +4,8 @@ const orderController = require("../controllers/Order");
 
 router.get("/history/:id", orderController.getOrderHistory);
 
+router.get("/schedule/:id", orderController.getOrderBySchedule);
+
 router.get('/:id', orderController.getOrderById);
 
 router.post("/:id", orderController.addNewOrder);
