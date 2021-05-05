@@ -1,4 +1,4 @@
-const express= require("express");
+const express = require("express");
 const multer = require("multer");
 
 let storage = multer.diskStorage({
@@ -25,15 +25,15 @@ let storageLogo = multer.diskStorage({
 });
 
 let storagePoster = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, "./public/upload/poster");
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
 
-let uploadL = multer({ storage: storageLogo, storage: storagePoster,limits });
+let uploadL = multer({ storage: storageLogo, storage: storagePoster, limits });
 
 const fromUpload = {
     uploadImage: (req, res, next) => {
@@ -49,6 +49,8 @@ const fromUpload = {
                     message: err.message,
                     statusCode: 400,
                 });
+            } else if (req.file == undefined) {
+                next();
             } else {
                 next();
             }
@@ -75,7 +77,7 @@ const fromUpload = {
             }
         })
     },
-    
+
     uploadPoster: (req, res, next) => {
         const uploadPoster = uploadL.single('poster');
         uploadPoster(req, res, (err) => {

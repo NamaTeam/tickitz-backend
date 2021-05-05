@@ -2,60 +2,61 @@ const fromResponse = require("../helpers/fromResponse")
 const UserModel = require("../models/User")
 
 const userController = {
-    getAllUsers:(req,res)=>{
+    getAllUsers: (req, res) => {
         UserModel
-        .getAllUsers(req)
-        .then((result)=>{
-            res.status(result.statusCode).send(result)
-        })
-        .catch((err)=>{
-            res.status(err.statusCode).send(err)
-        })
+            .getAllUsers(req)
+            .then((result) => {
+                res.status(result.statusCode).send(result)
+            })
+            .catch((err) => {
+                res.status(err.statusCode).send(err)
+            })
     },
 
-    getUsersById:(req, res) =>{
+    getUsersById: (req, res) => {
         UserModel
-        .getUserById(req.params.id)
-        .then((result)=>{
-            res.status(result.statusCode).send(result)
-        })
-        .catch((err)=>{
-            res.status(err.statusCode).send(err)
-        })
+            .getUserById(req.params.id)
+            .then((result) => {
+                res.status(result.statusCode).send(result)
+            })
+            .catch((err) => {
+                res.status(err.statusCode).send(err)
+            })
     },
 
-    deleteUserById:(req, res)=>{
+    deleteUserById: (req, res) => {
         UserModel
-        .deleteUserById(req.params.id)
-        .then((result)=>{
-            res.status(result.statusCode).send(result)
-        })
-        .catch((err)=>{
-            res.status(err.statusCode).send(err)
-        })
+            .deleteUserById(req.params.id)
+            .then((result) => {
+                res.status(result.statusCode).send(result)
+            })
+            .catch((err) => {
+                res.status(err.statusCode).send(err)
+            })
     },
 
-    addNewUsers:(request , res)=>{
+    addNewUsers: (req, res) => {
+        console.log(req)
         UserModel
-        .addNewUsers(request)
-        .then((result)=>{
-            res.status(result.statusCode).send(result)
-        })
-        .catch((err)=>{
-            res.status(err.statusCode).send(err)
-        })
+            .addNewUsers(req)
+            .then((result) => {
+                res.status(result.statusCode).send(result)
+            })
+            .catch((err) => {
+                res.status(err.statusCode).send(err)
+            })
     },
 
-    updateUser:(request , res)=>{
+    updateUser: (req, res) => {
         UserModel
-        .updateUser(request)
-        .then((result)=>{
-            res.status(result.statusCode).send(result)
-        })
-        .catch((err)=>{
-            res.status(err.statusCode).send(err)
-        })
+            .updateUser(req)
+            .then((result) => {
+                res.status(result.statusCode).send(result)
+            })
+            .catch((err) => {
+                res.status(err.statusCode).send(err)
+            })
     }
 }
 
-module.exports=userController
+module.exports = userController

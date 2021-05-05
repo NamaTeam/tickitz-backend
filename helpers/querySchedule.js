@@ -12,11 +12,20 @@ const querySchedule = {
   },
 
   addSchedule: (request) => {
-    const { movie_id, cinema_id, price, start } = request;
-    const query = `INSERT INTO schedule(movie_id, cinema_id, price, start_date) VALUES('${movie_id}', '${cinema_id}', '${price}', '${new Date(start)}')`
+    const { movie_id, cinema_id, price, start_date, start_time } = request;
+    const query = `INSERT INTO schedule(movie_id, cinema_id, price, start_date, start_time) VALUES('${movie_id}', '${cinema_id}', '${price}', '${start_date}', '${start_time}')`
 
     return query;
   },
+
+  editSchedule: (request, initial) => {
+    const { movie_id = initial.movie_id, cinema_id = initial.cinema_id, price = initial.price, start_date = initial.to_char, start_time = initial.start_time } = request
+    const query = `UPDATE schedule SET movie_id = ${movie_id}, cinema_id = ${cinema_id}, price = '${price}', start_date = '${start_date}', start_time = '${start_time}' WHERE id = ${request.id}`
+
+    console.log(query)
+
+    return query;
+  }
 }
 
 module.exports = querySchedule;

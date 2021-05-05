@@ -4,6 +4,7 @@ const paymentRouter = require("./Payment");
 const orderRouter = require("./Order");
 const cinemasRouter = require('./Cinemas');
 const moviesRouter = require('./Movies');
+const scheduleRouter = require('./Schedule');
 
 const routes = (app, prefix) => {
   // app.use(`${prefix}/...,`, fileRouter)
@@ -13,6 +14,7 @@ const routes = (app, prefix) => {
   app.use(`${prefix}/payment`, paymentRouter);
   app.use(`${prefix}/cinemas`, cinemasRouter);
   app.use(`${prefix}/movies`, moviesRouter);
+  app.use(`${prefix}/schedules`, scheduleRouter);
 };
 
 module.exports = routes;
