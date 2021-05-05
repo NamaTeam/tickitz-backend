@@ -1,7 +1,6 @@
 const route = require('express').Router()
 const moviesController = require('../controllers/Movies')
 const { uploadPoster } = require('../helpers/fromUpload');
-const moviesModel = require('../models/Movies');
 
 route.post('/', uploadPoster, moviesController.addMovies);
 route.get("/", moviesController.getAllMovies)
