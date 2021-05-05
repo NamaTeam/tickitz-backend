@@ -14,7 +14,7 @@ const moviesModel = {
             reject(fromResponse("Movies not found", 400));
           } else {
             resolve(
-              fromResponse("Get all movies success", 200, result.rows[0])
+              fromResponse("Get all movies success", 200, result.rows)
             );
           }
         } else {
