@@ -11,6 +11,15 @@ const querySchedule = {
     return query;
   },
 
+  getScheduleById: (request) => {
+    const query = `SELECT a.id, a.start_date, a.start_time, a.price, b.title, c.name, c.logo from schedule as a
+                  INNER JOIN movies as b ON b.id = a.movie_id
+                  INNER JOIN cinemas as c ON c.id = a.cinema_id
+                  WHERE a.id = ${request}`
+
+    return query;
+  },
+
   addSchedule: (request) => {
     const { movie_id, cinema_id, price, start_date, start_time } = request;
     const query = `INSERT INTO schedule(movie_id, cinema_id, price, start_date, start_time) VALUES('${movie_id}', '${cinema_id}', '${price}', '${start_date}', '${start_time}')`
