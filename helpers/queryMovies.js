@@ -11,7 +11,8 @@ const queryMovies = {
 
   getMoviesNow: (request) => {
     const query = `SELECT b.id, b.title, b.category, b.poster, TO_CHAR(a.start_date, 'YYYY-MM-DD') as start_date from schedule as a
-                  INNER JOIN movies as b ON b.id = a.movie_id WHERE start_date = '${request.start_date}'`
+                  INNER JOIN movies as b ON b.id = a.movie_id WHERE start_date = '${request.start_date}'
+                  GROUP BY b.title, b.id, a.start_date`
 
     return query;
   },

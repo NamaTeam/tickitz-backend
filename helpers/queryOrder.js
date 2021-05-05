@@ -1,8 +1,8 @@
 const queryOrder = {
   addNew: (request) => {
     const { id, schedule_id, user_id, total, status, seat } = request;
-    const query = `INSERT INTO orders(id, schedule_id, user_id, order_date, total_payment, status, seat) VALUES('${id}', '${schedule_id}', '${user_id}', 'now()', '${total}', '${status}', ARRAY[${seat}]) RETURNING id`;
-    console.log(query, 'queru')
+    const query = `INSERT INTO orders(id, schedule_id, user_id, order_date, total_payment, status, seat) VALUES('${id}', '${schedule_id}', '${user_id}', 'now()', '${total}', '${status}', ${'ARRAY' + seat}) RETURNING id`;
+
     return query;
   },
 
@@ -28,7 +28,7 @@ const queryOrder = {
 
   updateOrder: (request, initial) => {
     const { id, schedule_id = initial.schedule_id, status = initial.status, total_payment = initial.total_payment, seat } = request;
-    const query = seat !== undefined ? `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}', seat = ARRAY[${seat}], total_payment = ${total_payment} WHERE id = '${id}'` : `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}' WHERE id = '${id}'`
+    const query = seat !== undefined ? `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}', seat = ${'ARRAY' + seat}, total_payment = ${total_payment} WHERE id = '${id}'` : `UPDATE orders SET schedule_id = ${schedule_id}, status = '${status}' WHERE id = '${id}'`
 
     return query;
   },
