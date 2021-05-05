@@ -68,8 +68,9 @@ const moviesModel = {
         if (!err) {
           if (result.rows.length < 1) {
             reject(fromResponse("Movies not found", 400));
-            return
+            return;
           }
+          console.log(result, 'resu;lt')
           resolve(fromResponse("Get movies success", 200, result.rows));
         } else {
           reject(fromResponse("Get movies failed", 500));

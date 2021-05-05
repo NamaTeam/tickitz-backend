@@ -19,7 +19,8 @@ const queryMovies = {
   getMoviesByMonth: (request) => {
     const query = `SELECT b.id, b.title, b.category, b.poster, TO_CHAR(a.start_date, 'MM') as start_date from schedule as a
                   INNER JOIN movies as b ON b.id = a.movie_id WHERE TO_CHAR(a.start_date, 'MM') = '${request.start_month}'
-                  GROUP BY b.title, b.id, a.start_date`
+				          GROUP BY b.title, b.id, a.start_date`
+    console.log(query)
 
     return query;
   },

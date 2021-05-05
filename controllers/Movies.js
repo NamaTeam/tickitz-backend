@@ -39,6 +39,7 @@ const moviesController = {
     const request = {
       start_month: req.query.month,
     }
+    console.log(request, 'cont')
     try {
       const result = await moviesModel.getMoviesByMonth(request);
       res.status(result.statusCode).send(result);

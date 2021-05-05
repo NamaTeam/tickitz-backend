@@ -5,7 +5,7 @@ const moviesModel = require('../models/Movies');
 
 route.post('/', uploadPoster, moviesController.addMovies);
 route.get('/', moviesController.getMoviesNow);
-route.get('/month', moviesModel.getMoviesByMonth)
+route.get('/month', moviesController.getMoviesByMonth)
 route.get("/:id", moviesController.getMovies)
 route.delete("/:id", moviesController.deleteMovies)
 route.get("/", moviesController.getAllMovies)
