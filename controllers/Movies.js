@@ -35,6 +35,17 @@ const moviesController = {
     }
   },
 
+  getUpcomingMovies: (req, res) => {
+    moviesModel
+      .getUpcomingMovies(req)
+      .then((result) => {
+        res.status(result.statusCode).send(result)
+      })
+      .catch((err) => {
+        res.status(err.statusCode).send(err)
+      })
+  },
+
   getMoviesByMonth: async (req, res) => {
     const request = {
       start_month: req.query.month,

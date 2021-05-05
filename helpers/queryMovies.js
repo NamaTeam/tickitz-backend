@@ -17,6 +17,14 @@ const queryMovies = {
     return query;
   },
 
+  getUpcomingMovies: (request) => {
+    const query = `SELECT b.id, b.title, b.category, b.poster, TO_CHAR(a.start_date, 'YYYY-MM-DD') as start_date from schedule as a
+                  INNER JOIN movies as b ON b.id = a.movie_id WHERE start_date > current_date
+                  GROUP BY b.title, b.id, a.start_date`
+
+    return query;
+  },
+
   getMoviesByMonth: (request) => {
     const query = `SELECT b.id, b.title, b.category, b.poster, TO_CHAR(a.start_date, 'MM') as start_date from schedule as a
                   INNER JOIN movies as b ON b.id = a.movie_id WHERE TO_CHAR(a.start_date, 'MM') = '${request.start_month}'
