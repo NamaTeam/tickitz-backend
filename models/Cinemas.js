@@ -7,6 +7,7 @@ const fs = require('fs');
 const cinemasModel = {
   showCinemas: (request) => {
     return new Promise((resolve, reject) => {
+      console.log(request)
       const query = queryCinemas.showCinemas(request.city);
       pg.query(query, (err, result) => {
         if (!err) {
@@ -23,6 +24,47 @@ const cinemasModel = {
         }
       })
     })
+  },
+
+  showScheduleCinemas: (request) => {
+    return new Promise((resolve, reject) => {
+      console.log(request)
+      const query = queryCinemas.showScheduleCinemas(request);
+      pg.query(query, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse('Cinemas not found in this location', 400));
+            return;
+          };
+          resolve(fromResponse('Get cinemas success', 200, {
+            ...result.rows[0],
+            schedule: result.rows
+          }));
+        } else {
+          reject(fromResponse('Get cinemas failed', 500));
+        }
+      })
+    })
+  },
+
+  getAllCinemas: (req) => {
+    return new Promise((resolve, reject) => {
+      const getallCinemas = queryCinemas.getAllCinemas(req);
+      pg.query(getallCinemas, (err, result) => {
+        console.log(err, "ini error");
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse("Cinemas not found", 400));
+          } else {
+            resolve(
+              fromResponse("Get all cinemas success", 200, result.rows)
+            );
+          }
+        } else {
+          reject(fromResponse("Get all cinemas failed", 500));
+        }
+      });
+    });
   },
 
   addCinemas: (request) => {

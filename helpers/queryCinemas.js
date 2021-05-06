@@ -2,10 +2,22 @@ const { request } = require("express");
 
 const queryCinemas = {
   showCinemas: (request) => {
-    const query = `SELECT a.id, a.name, a.city, a.street, a.street_number, a.created_at, a.updated_at, a.logo, b.id as schedule_id, b.movie_id, b.start_date, b.end_date, b.price
+    const query = `SELECT a.id, a.name, a.city, a.street, a.street_number, a.created_at, a.updated_at, a.logo, b.id as schedule_id, b.movie_id, b.start_date, b.price, b.start_time
 	FROM cinemas as a
-	INNER JOIN (SELECT a.id, a.movie_id, a.start_date, a.end_date, a.price, a.cinema_id from schedule as a) as b on b.cinema_id = a.id WHERE a.city = '${request.toLowerCase()}'`
+	INNER JOIN (SELECT a.id, a.movie_id, a.start_date, a.price, a.cinema_id, a.start_time from schedule as a) as b on b.cinema_id = a.id WHERE a.city = '${request.toLowerCase()}'`
     return query;
+  },
+
+  showScheduleCinemas: (request) => {
+    const query = `SELECT a.id, a.name, a.city, a.street, a.street_number, a.created_at, a.updated_at, a.logo, b.id as schedule_id, b.movie_id, b.start_date, b.price, b.start_time
+	FROM cinemas as a
+	INNER JOIN (SELECT a.id, a.movie_id, a.start_date, a.price, a.cinema_id, a.start_time from schedule as a) as b on b.cinema_id = a.id WHERE a.city = '${request.city.toLowerCase()}' AND b.movie_id = '${request.id}'`
+    return query;
+  },
+
+  getAllCinemas: () => {
+    const getallCinemas = (`SELECT * FROM cinemas `)
+    return getallCinemas
   },
 
   addCinemas: (request) => {
