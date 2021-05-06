@@ -10,8 +10,8 @@ const queryOrder = {
   },
 
   getOrderHistory: (request) => {
-    const query = `SELECT a.id, a.order_date, a.total_payment, a.status, a.seat, b.start_date, b.title as movie_title, b.name as cinema_name from orders as a
-                  INNER JOIN (SELECT a.id, a.start_date, b.title, c.name from schedule as a
+    const query = `SELECT a.id, a.order_date, a.total_payment, a.status, a.seat, b.start_date, b.start_time, b.title as movie_title, b.name as cinema_name from orders as a
+                  INNER JOIN (SELECT a.id, a.start_date, a.start_time, b.title, c.name from schedule as a
                     INNER JOIN movies as b on b.id = a.movie_id
                     INNER JOIN cinemas as c on c.id = a.cinema_id) as b on b.id = a.schedule_id
                   WHERE a.user_id = ${request}`;
@@ -20,8 +20,8 @@ const queryOrder = {
   },
 
   getOrderById: (request) => {
-    const query = `SELECT a.id, a.order_date, a.total_payment, a.status, a.seat, b.start_date, b.title as movie_title, b.name as cinema_name from orders as a
-                  INNER JOIN (SELECT a.id, a.start_date, b.title, c.name from schedule as a
+    const query = `SELECT a.id, a.order_date, a.total_payment, a.status, a.seat, b.start_date, b.start_time, b.title as movie_title, b.name as cinema_name from orders as a
+                  INNER JOIN (SELECT a.id, a.start_date, a.start_time, b.title, c.name from schedule as a
                     INNER JOIN movies as b on b.id = a.movie_id
                     INNER JOIN cinemas as c on c.id = a.cinema_id) as b on b.id = a.schedule_id
                   WHERE a.id = '${request}'`;
