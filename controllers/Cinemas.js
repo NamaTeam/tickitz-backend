@@ -9,8 +9,34 @@ const cinemasController = {
       const result = await cinemasModel.showCinemas(request);
       res.status(result.statusCode).send(result);
     } catch (err) {
+      console.log(err)
       res.status(err.statusCode).send(err);
     };
+  },
+
+  showScheduleCinemas: async (req, res) => {
+    const request = {
+      city: req.body.location,
+      id: req.params.id
+    };
+    try {
+      const result = await cinemasModel.showScheduleCinemas(request);
+      res.status(result.statusCode).send(result);
+    } catch (err) {
+      console.log(err)
+      res.status(err.statusCode).send(err);
+    };
+  },
+
+  getAllCinemas: (req, res) => {
+    cinemasModel
+      .getAllCinemas(req)
+      .then((result) => {
+        res.status(result.statusCode).send(result)
+      })
+      .catch((err) => {
+        res.status(err.statusCode).send(err)
+      })
   },
 
   addCinemas: async (req, res) => {
