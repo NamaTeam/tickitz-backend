@@ -9,7 +9,7 @@ route.patch('/:id',fromUpload.uploadImage, userController.updateUser)
 
 route.get('/:id', userController.getUsersById)
 
-route.get('/',  userController.getAllUsers)
+route.get('/',  userController.getAllusers)
 
 route.delete('/:id', userController.deleteUserById)
 

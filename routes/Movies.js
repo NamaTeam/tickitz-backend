@@ -4,6 +4,7 @@ const { uploadPoster } = require('../helpers/fromUpload');
 
 route.post('/', uploadPoster, moviesController.addMovies);
 route.get("/", moviesController.getAllMovies)
+route.get("/search", moviesController.searchMovieByTitle)
 route.get('/date', moviesController.getMoviesNow);
 route.get('/upcoming', moviesController.getUpcomingMovies);
 route.get('/month', moviesController.getMoviesByMonth)
