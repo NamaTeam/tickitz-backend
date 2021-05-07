@@ -24,7 +24,6 @@ Open [schema](https://drawsql.app/dea/diagrams/tickitz)
     │   ├── Movies.js             
     │   ├── Order.js
     |   ├── Schedule.js
-    |   ├── Seat.js
     |   └── User.js
     ├── helpers
     │   ├── connect_db.js
@@ -43,7 +42,6 @@ Open [schema](https://drawsql.app/dea/diagrams/tickitz)
     │   ├── Movies.js
     │   ├── Order.js
     |   ├── Schedule.js
-    |   ├── Seat.js
     |   └── User.js
     ├── routes
     │   ├── Auth.js              
@@ -52,7 +50,6 @@ Open [schema](https://drawsql.app/dea/diagrams/tickitz)
     │   ├── Movies.js             
     │   ├── Order.js
     |   ├── Schedule.js
-    |   ├── Seat.js
     |   └── User.js
     └── index.js
     
@@ -76,8 +73,26 @@ cinema endpoint
     POST     /cinemas
     PATCH    /cinemas/1
     DEL      /cinemas/1
+    
+schedule endpoint
 
-when put under a domain with `PREFIX_URI`, it would look like:
+    GET      /schedules/1
+    GET      /schedules/movies/1
+    GET      /schedules/cinemas/1
+    POST     /schedules
+    PATCH    /schedules/1
+    DEL      /schedules/1
+    
+order endpoint
+
+    GET      /orders/history/1
+    GET      /orders/schedule/1
+    GET      /orders/1
+    POST     /orders/1
+    PATCH    /orders/1
+    DEL      /orders/1
+
+when put under a domain with `prefix`, it would look like:
 
     https://www.example.com/tickitz/api/users
  
