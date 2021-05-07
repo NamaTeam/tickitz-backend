@@ -4,9 +4,9 @@ const queryMovies = require("../helpers/queryMovies");
 const fs = require("fs");
 
 const moviesModel = {
-  getAllMovies: (req) => {
+  getAllMovies: (request) => {
     return new Promise((resolve, reject) => {
-      const getallMovies = queryMovies.getAllMovies(req);
+      const getallMovies = queryMovies.getAllMovies(request);
       pg.query(getallMovies, (err, result) => {
         console.log(err, "ini error");
         if (!err) {
