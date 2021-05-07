@@ -8,7 +8,7 @@ To get the Node server running locally:
 
 * Clone this repo with `git clone https://github.com/NamaTeam/tickitz-backend.git`
 * `cd tickitz-backend`
-* `npm` install to install all required dependencies
+* `npm install` to install all required dependencies
 * Create a `.env` file and reference the `.env.example` file
 * `node index.js` to start the local server
 
