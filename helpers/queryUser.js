@@ -1,8 +1,10 @@
 
 
 const queryUser = {
-    getAllUsers: () => {
-        const query = `SELECT id,email,username,first_name,last_name,phone,photo FROM users`;
+    getAll: (req) => {
+        const { limit = 10, page = 1 } = req;
+        const query = `SELECT * FROM PUBLIC.users LIMIT '${limit}' OFFSET '${
+            (page - 1) * limit}'`;
         return query
     },
 

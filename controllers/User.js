@@ -2,15 +2,15 @@ const fromResponse = require("../helpers/fromResponse")
 const UserModel = require("../models/User")
 
 const userController = {
-    getAllUsers: (req, res) => {
+    getAllusers: (req, res) => {
         UserModel
-            .getAllUsers(req)
-            .then((result) => {
-                res.status(result.statusCode).send(result)
-            })
-            .catch((err) => {
-                res.status(err.statusCode).send(err)
-            })
+          .getAllusers(req)
+          .then((result) => {
+            res.status(result.statusCode).send(result)
+          })
+          .catch((err) => {
+            res.status(err.statusCode).send(err)
+          });
     },
 
     getUsersById: (req, res) => {

@@ -5,14 +5,17 @@ const bcrypt = require("bcrypt");
 const fs = require('fs')
 
 const UserModel = {
-  getAllUsers: (req) => {
+  getAllusers: (req) => {
     return new Promise((resolve, reject) => {
-      pg.query(
-        `SELECT id,email,username,first_name,last_name,phone,photo FROM users `,
+      const query= queryUser.getAll(req.query)
+      pg.query(query,
         (err, result) => {
+          if(result.rows.length < 0){
+            reject(fromResponse("User not found", 400))
+          }
           console.log(err);
           if (!err) {
-            resolve(fromResponse("Get all Users success", 200, result.rows[0]));
+            resolve(fromResponse("Get all Users success", 200, result?.rows));
           } else {
             reject(fromResponse("Get all Users failed", 500));
           }

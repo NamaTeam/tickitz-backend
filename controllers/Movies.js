@@ -102,6 +102,15 @@ const moviesController = {
       res.status(err.statusCode).send(err);
     }
   },
+
+  searchMovieByTitle : async (req, res) =>{
+    try{
+      const result = await moviesModel.searchMovieByTitle(req.query);
+      res.status(result.statusCode).send(result)
+    }catch(err){
+      res.status(err.statusCode).send(err)
+    }
+  }
 }
 
 module.exports = moviesController
