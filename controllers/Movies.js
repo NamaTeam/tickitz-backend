@@ -2,8 +2,11 @@ const moviesModel = require("../models/Movies")
 
 const moviesController = {
   getAllMovies: (req, res) => {
+    const request = {
+      ...req.query
+    }
     moviesModel
-      .getAllMovies(req)
+      .getAllMovies(request)
       .then((result) => {
         res.status(result.statusCode).send(result)
       })

@@ -1,6 +1,6 @@
 const queryMovies = {
-  getAllMovies: () => {
-    const getallMovies = (`SELECT * FROM movies `)
+  getAllMovies: (request) => {
+    const getallMovies = (`SELECT * FROM movies WHERE release_date >= '${request.from}' AND release_date <= '${request.to}' ORDER BY release_date DESC`)
     return getallMovies
   },
 
