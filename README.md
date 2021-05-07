@@ -56,3 +56,28 @@ Open [schema](https://drawsql.app/dea/diagrams/tickitz)
     |   └── User.js
     └── index.js
     
+## Endpoints
+movie endpoint
+
+    GET      /movies
+    GET      /movies/date?start=2021-05-06
+    GET      /movies/month?month=05
+    GET      /movies/upcoming
+    GET      /movies/1
+    POST     /movies
+    PATCH    /movies/1
+    DEL      /movies/1
+
+cinema endpoint
+
+    GET      /cinemas
+    GET      /cinemas/all
+    POST     /cinemas/list/4
+    POST     /cinemas
+    PATCH    /cinemas/1
+    DEL      /cinemas/1
+
+when put under a domain with `PREFIX_URI`, it would look like:
+
+    https://www.example.com/tickitz/api/users
+ 
