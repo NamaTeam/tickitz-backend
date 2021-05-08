@@ -2,8 +2,11 @@ const moviesModel = require("../models/Movies")
 
 const moviesController = {
   getAllMovies: (req, res) => {
+    const request = {
+      ...req.query
+    }
     moviesModel
-      .getAllMovies(req)
+      .getAllMovies(request)
       .then((result) => {
         res.status(result.statusCode).send(result)
       })
@@ -102,6 +105,15 @@ const moviesController = {
       res.status(err.statusCode).send(err);
     }
   },
+
+  searchMovieByTitle: async (req, res) => {
+    try {
+      const result = await moviesModel.searchMovieByTitle(req.query);
+      res.status(result.statusCode).send(result)
+    } catch (err) {
+      res.status(err.statusCode).send(err)
+    }
+  }
 }
 
 module.exports = moviesController

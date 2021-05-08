@@ -4,9 +4,9 @@ const queryMovies = require("../helpers/queryMovies");
 const fs = require("fs");
 
 const moviesModel = {
-  getAllMovies: (req) => {
+  getAllMovies: (request) => {
     return new Promise((resolve, reject) => {
-      const getallMovies = queryMovies.getAllMovies(req);
+      const getallMovies = queryMovies.getAllMovies(request);
       pg.query(getallMovies, (err, result) => {
         console.log(err, "ini error");
         if (!err) {
@@ -191,6 +191,26 @@ const moviesModel = {
       });
     });
   },
+
+  // add search in here 
+  searchMovieByTitle : (request)=>{
+    return new Promise((resolve, reject)=>{
+      const query = queryMovies.searchMovie(request)
+      pg.query(query, (err, result)=>{
+        console.log(err,"ini error query")
+        console.log(result)
+        if(result.rows.length < 1){
+          reject(fromResponse("Movies not found", 400))
+          return;
+        }
+        if(!err){
+          resolve(fromResponse("Succses search movies by title", 200, result.rows))
+        }else{
+          reject(fromResponse("Error occrous when searching movies", 500))
+        }
+      })
+    })
+  }
 };
 
 module.exports = moviesModel;

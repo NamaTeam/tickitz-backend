@@ -1,6 +1,6 @@
 const queryMovies = {
-  getAllMovies: () => {
-    const getallMovies = (`SELECT * FROM movies `)
+  getAllMovies: (request) => {
+    const getallMovies = (`SELECT * FROM movies WHERE release_date >= '${request.from}' AND release_date <= '${request.to}' ORDER BY release_date DESC`)
     return getallMovies
   },
 
@@ -46,6 +46,12 @@ const queryMovies = {
     const query = `UPDATE movies SET category='${category}', title='${title}',release_date='now()',created_at='now()', synopsis='${synopsis}',actors ='${actors}',duration='${duration}', poster='${poster}',updated_at='now()' WHERE id = ${id}`
 
     return query;
+  },
+
+  searchMovie: (request) => {
+    const { title, limit = 10, page = 1 } = request;
+    return `SELECT id, category, title, release_date, created_at, synopsis, actors, duration, poster FROM movies WHERE LOWER(title) LIKE '%${title.toLowerCase()}%' ORDER BY title LIMIT ${limit} OFFSET ${(page - 1) * limit
+      }`;
   }
 }
 
