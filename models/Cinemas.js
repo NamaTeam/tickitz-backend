@@ -66,6 +66,37 @@ const cinemasModel = {
     });
   },
 
+  getAllCinema: (request) => {
+    return new Promise((resolve, reject) => {
+      const getallCinemas = queryCinemas.getAllCinema(request).getPages;
+      pg.query(getallCinemas, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse("Cinemas not found", 400));
+          } else {
+            const query = queryCinemas.getAllCinema(request).getallCinema
+            pg.query(query, (error, response) => {
+              if (!error) {
+                if (response.rows.length < 1) {
+                  reject(fromResponse("Cinemas not found", 400))
+                } else {
+                  resolve(fromResponse('Get all cinemas success', 200, {
+                    total_pages: Math.ceil(result.rows.length / (request.limit || 10)),
+                    cinemas: response.rows
+                  }))
+                }
+              } else {
+                reject(fromResponse("Get all cinemas failed", 500));
+              }
+            })
+          }
+        } else {
+          reject(fromResponse("Get all cinemas failed", 500));
+        }
+      });
+    });
+  },
+
   addCinemas: (request) => {
     return new Promise((resolve, reject) => {
       const { name, city, street, street_number, logo } = request;

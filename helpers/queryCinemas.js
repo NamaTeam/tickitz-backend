@@ -20,6 +20,14 @@ const queryCinemas = {
     return getallCinemas
   },
 
+  getAllCinema: (request) => {
+    const getPages = `SELECT * FROM cinemas WHERE city = '${request.city}'`
+    const getallCinema = `SELECT * FROM cinemas WHERE city = '${request.city}'
+                          ORDER BY created_at DESC
+                          LIMIT '${request.limit || 10}' OFFSET '${(request.page - 1) * request.limit || 0}'`
+    return { getallCinema, getPages }
+  },
+
   addCinemas: (request) => {
     const { name, logo, city, street, street_number } = request;
     const query = `INSERT INTO cinemas(name, logo, city, street, street_number, created_at) VALUES('${name}', '${logo}', '${city.toLowerCase()}', '${street.toLowerCase()}', '${street_number}', 'now()')`

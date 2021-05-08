@@ -8,6 +8,8 @@ router.post('/list/:id', cinemasController.showScheduleCinemas);
 
 router.get('/all', cinemasController.getAllCinemas);
 
+router.get('/all-cinema', cinemasController.getAllCinema)
+
 router.post('/', uploadLogo, cinemasController.addCinemas);
 
 router.patch('/:id', uploadLogo, cinemasController.updateCinemas);

@@ -32,10 +32,24 @@ const cinemasController = {
   getAllCinemas: (req, res) => {
     const request = {
       city: req.body.location,
-      ...req.query
     }
     cinemasModel
       .getAllCinemas(request)
+      .then((result) => {
+        res.status(result.statusCode).send(result)
+      })
+      .catch((err) => {
+        res.status(err.statusCode).send(err)
+      })
+  },
+
+  getAllCinema: (req, res) => {
+    const request = {
+      city: req.body.location,
+      ...req.query
+    }
+    cinemasModel
+      .getAllCinema(request)
       .then((result) => {
         res.status(result.statusCode).send(result)
       })
