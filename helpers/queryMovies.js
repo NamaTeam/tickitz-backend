@@ -1,13 +1,11 @@
 const queryMovies = {
-  getAllMovies: (req) => {
-    const { limit = 10, page = 0 } = req.query; 
-    const getallMovies = (`SELECT * FROM movies ORDER BY release_date LIMIT '${limit}' OFFSET '${page}'`)
+  getAllMovies: (request) => {
+    const getallMovies = (`SELECT * FROM movies WHERE release_date >= '${request.from}' AND release_date <= '${request.to}' ORDER BY release_date DESC`)
     return getallMovies
   },
 
   getMovies: (request) => {
-    const { limit = 10, page = 0 } = request.query; 
-    const getMoviesById = (`SELECT * FROM movies WHERE id=${request} ORDER BY release_date LIMIT '${limit}' OFFSET '${page}'`)
+    const getMoviesById = (`SELECT * FROM movies WHERE id=${request}`)
     return getMoviesById
   },
 
@@ -52,9 +50,8 @@ const queryMovies = {
 
   searchMovie: (request) => {
     const { title, limit = 10, page = 1 } = request;
-    return `SELECT id, category, title, release_date, created_at, synopsis, actors, duration, poster FROM movies WHERE LOWER(title) LIKE '%${title.toLowerCase()}%' ORDER BY title LIMIT ${limit} OFFSET ${
-      (page - 1) * limit
-    }`;
+    return `SELECT id, category, title, release_date, created_at, synopsis, actors, duration, poster FROM movies WHERE LOWER(title) LIKE '%${title.toLowerCase()}%' ORDER BY title LIMIT ${limit} OFFSET ${(page - 1) * limit
+      }`;
   }
 }
 

@@ -15,8 +15,12 @@ const OrderController = {
   },
 
   getOrderHistory: async (req, res) => {
+    const request = {
+      id: req.params.id,
+      ...req.query
+    }
     try {
-      const result = await orderModel.getOrderHistory(req.params.id);
+      const result = await orderModel.getOrderHistory(request);
       res.status(result.statusCode).send(result);
     } catch (err) {
       res.status(err.statusCode).send(err);

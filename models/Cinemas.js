@@ -7,8 +7,7 @@ const fs = require('fs');
 const cinemasModel = {
   showCinemas: (request) => {
     return new Promise((resolve, reject) => {
-      console.log(request)
-      const query = queryCinemas.showCinemas(request.city);
+      const query = queryCinemas.showCinemas(request);
       pg.query(query, (err, result) => {
         if (!err) {
           if (result.rows.length < 1) {
@@ -47,9 +46,9 @@ const cinemasModel = {
     })
   },
 
-  getAllCinemas: (req) => {
+  getAllCinemas: (request) => {
     return new Promise((resolve, reject) => {
-      const getallCinemas = queryCinemas.getAllCinemas(req);
+      const getallCinemas = queryCinemas.getAllCinemas(request);
       pg.query(getallCinemas, (err, result) => {
         console.log(err, "ini error");
         if (!err) {

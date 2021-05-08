@@ -106,11 +106,11 @@ const moviesController = {
     }
   },
 
-  searchMovieByTitle : async (req, res) =>{
-    try{
+  searchMovieByTitle: async (req, res) => {
+    try {
       const result = await moviesModel.searchMovieByTitle(req.query);
       res.status(result.statusCode).send(result)
-    }catch(err){
+    } catch (err) {
       res.status(err.statusCode).send(err)
     }
   }
