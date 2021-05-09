@@ -2,6 +2,7 @@ const midtransClient = require("midtrans-client");
 
 const paymentController = {
   chargeRequest: (req, res) => {
+    console.log(req, 'req')
     let core = new midtransClient.CoreApi({
       isProduction: false,
       serverKey: "SB-Mid-server-e5_OvUPOJna-syKCpsdoBKLz",
@@ -11,12 +12,12 @@ const paymentController = {
     let parameter = {
       payment_type: "gopay",
       transaction_details: {
-        gross_amount: 12145,
-        order_id: "test-transaction-54321",
+        order_id: req.body.order_id,
+        gross_amount: req.body.total_payment,
       },
       gopay: {
         enable_callback: true, // optional
-        callback_url: "someapps://callback", // optional
+        callback_url: `http://localhost:3000/gopay_success/${req.body.order_id}`, // optional
       },
     };
 
