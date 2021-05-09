@@ -91,6 +91,14 @@ order endpoint
     POST     /orders/1
     PATCH    /orders/1
     DEL      /orders/1
+    
+user endpoint
+
+    GET      /users
+    GET      /users/1
+    POST     /users
+    PATCH    /users/1
+    DEL      /users/1    
 
 when put under a domain with `prefix`, it would look like:
 
