@@ -45,7 +45,6 @@ const cinemasController = {
 
   getAllCinema: (req, res) => {
     const request = {
-      city: req.body.location,
       ...req.query
     }
     cinemasModel
