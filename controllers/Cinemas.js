@@ -4,6 +4,7 @@ const cinemasController = {
   showCinemas: async (req, res) => {
     const request = {
       city: req.body.location,
+      ...req.query
     };
     try {
       const result = await cinemasModel.showCinemas(request);
@@ -23,6 +24,7 @@ const cinemasController = {
       const result = await cinemasModel.showScheduleCinemas(request);
       res.status(result.statusCode).send(result);
     } catch (err) {
+      console.log(err)
       res.status(err.statusCode).send(err);
     };
   },
@@ -32,7 +34,7 @@ const cinemasController = {
       city: req.body.location,
     }
     cinemasModel
-      .getAllCinemas(requesd)
+      .getAllCinemas(request)
       .then((result) => {
         res.status(result.statusCode).send(result)
       })
