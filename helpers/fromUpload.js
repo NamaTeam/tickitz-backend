@@ -8,8 +8,8 @@ let storagePhoto = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-}
+    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+  }
 });
 
 let storageLogo = multer.diskStorage({
@@ -18,8 +18,8 @@ let storageLogo = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-}
+    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+  }
 });
 
 let storagePoster = multer.diskStorage({
@@ -28,50 +28,50 @@ let storagePoster = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-}
+    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+  }
 })
 
-let uploadImg =multer({
+let uploadImg = multer({
   storage: storagePhoto,
-  fileFilter: function(req,file, cb){
-    let ext =pat(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-            return cb(new Error('Only images are allowed'))
-        }
-        cb(null, true)
-    },
-    limits:{
-        fileSize: 5000000,
+  fileFilter: function (req, file, cb) {
+    let ext = path.extname(file.originalname);
+    if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+      return cb(new Error('Only images are allowed'))
     }
+    cb(null, true)
+  },
+  limits: {
+    fileSize: 5000000,
+  }
 })
 
-let uploadL =multer({
+let uploadL = multer({
   storage: storageLogo,
-  fileFilter: function(req,file, cb){
+  fileFilter: function (req, file, cb) {
     let ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-            return cb(new Error('Only images are allowed'))
-        }
-        cb(null, true)
-    },
-    limits:{
-        fileSize: 5000000,
+    if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+      return cb(new Error('Only images are allowed'))
     }
+    cb(null, true)
+  },
+  limits: {
+    fileSize: 5000000,
+  }
 })
 
-let uploadP =multer({
+let uploadP = multer({
   storage: storagePoster,
-  fileFilter: function(req,file, cb){
+  fileFilter: function (req, file, cb) {
     let ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-            return cb(new Error('Only images are allowed'))
-        }
-        cb(null, true)
-    },
-    limits:{
-        fileSize: 5000000,
+    if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+      return cb(new Error('Only images are allowed'))
     }
+    cb(null, true)
+  },
+  limits: {
+    fileSize: 5000000,
+  }
 })
 
 const fromUpload = {
