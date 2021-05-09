@@ -88,7 +88,7 @@ const fromUpload = {
           message: err.message,
           statusCode: 400,
         });
-      } else if (req.file == undefined) {
+      } else if (req.file == undefined || req.file === null) {
         next();
       } else {
         next();
@@ -109,7 +109,7 @@ const fromUpload = {
           message: err.message,
           statusCode: 400,
         });
-      } else if (req.file === undefined) {
+      } else if (req.file === undefined || req.file === null) {
         next();
       } else {
         next();
@@ -130,7 +130,7 @@ const fromUpload = {
           message: err.message,
           statusCode: 400,
         });
-      } else if (req.file === undefined) {
+      } else if (req.file === undefined || req.file === null) {
         next();
       } else {
         next();

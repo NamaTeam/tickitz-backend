@@ -95,7 +95,7 @@ const moviesController = {
     const request = {
       ...req.body,
       id: req.params.id,
-      // poster: `/upload/poster/${req.file.filename}`,
+      poster: req.file ? `/upload/poster/${req.file.filename}` : undefined,
     }
     console.log(request, 'ini controller')
     try {

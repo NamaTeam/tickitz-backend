@@ -5,7 +5,7 @@ const queryMovies = {
   },
 
   getMovies: (request) => {
-    const getMoviesById = (`SELECT * FROM movies WHERE id=${request}`)
+    const getMoviesById = (`SELECT TO_CHAR(release_date,'YYYY-MM-DD')AS release_date, id, category, title, synopsis, actors, duration, created_at, updated_at, poster FROM movies WHERE id=${request}`)
     return getMoviesById
   },
 
