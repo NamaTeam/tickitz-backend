@@ -199,7 +199,7 @@ const moviesModel = {
       pg.query(query, (err, result)=>{
         console.log(err,"ini error query")
         console.log(result)
-        if(result.rows.length > 1){
+        if(result.rows.length < 1){
           reject(fromResponse("Movies not found", 400))
           return;
         }
