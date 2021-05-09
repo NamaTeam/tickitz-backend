@@ -162,7 +162,7 @@ const moviesModel = {
 
   updateMovies: (request) => {
     return new Promise((resolve, reject) => {
-      const { id, category, title, synopsis, cast, duration, poster } = request;
+      const { id, poster} = request;
       pg.query(`SELECT * from movies WHERE id = ${id}`, (err, initialValue) => {
         console.log(err, "test err 1");
         if (!err) {

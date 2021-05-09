@@ -42,8 +42,8 @@ const queryMovies = {
   },
 
   updateMovies: (request, initial) => {
-    const { id, category = initial.category, title = initial.title, synopsis = initial.synopsis, actors = initial.actors, duration = initial.duration, poster = initial.poster } = request
-    const query = `UPDATE movies SET category='${category}', title='${title}',release_date='now()',created_at='now()', synopsis='${synopsis}',actors ='${actors}',duration='${duration}', poster='${poster}',updated_at='now()' WHERE id = ${id}`
+    const { id, category = initial.category, title = initial.title, synopsis = initial.synopsis, actors = initial.actors, duration = initial.duration, poster = initial.poster, release_date = initial.release_date} = request
+    const query = `UPDATE movies SET category='${category}', title='${title}',release_date='${release_date}', synopsis='${synopsis}',actors ='${actors}',duration='${duration}', poster='${poster}',updated_at='now()' WHERE id = ${id}`
 
     return query;
   },
