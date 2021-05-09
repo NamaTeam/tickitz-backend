@@ -7,8 +7,8 @@ let storagePhoto = multer.diskStorage({
     cb(null, "./public/upload/photo");
   },
   filename: function (req, file, cb) {
-    let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    // let datetimestamp = Date.now();
+    cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`)
   }
 });
 
@@ -17,8 +17,8 @@ let storageLogo = multer.diskStorage({
     cb(null, "./public/upload/logos");
   },
   filename: function (req, file, cb) {
-    let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    // let datetimestamp = Date.now();
+    cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`)
   }
 });
 
@@ -27,8 +27,8 @@ let storagePoster = multer.diskStorage({
     cb(null, "./public/upload/poster");
   },
   filename: function (req, file, cb) {
-    let datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    // let datetimestamp = Date.now();
+    cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`)
   }
 })
 
