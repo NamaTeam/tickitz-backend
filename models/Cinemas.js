@@ -97,6 +97,22 @@ const cinemasModel = {
     });
   },
 
+  getCinemaById: (request) => {
+    return new Promise((resolve, reject) => {
+      pg.query(`SELECT * from cinemas WHERE id = ${request.id}`, (err, result) => {
+        if (!err) {
+          if (result.rows.length < 1) {
+            reject(fromResponse('Cinema not found', 400))
+            return;
+          }
+          resolve(fromResponse('Get cinema success', 200, result.rows[0]))
+        } else {
+          reject(fromResponse('Get cinema failed', 500))
+        }
+      })
+    })
+  },
+
   addCinemas: (request) => {
     return new Promise((resolve, reject) => {
       const { name, city, street, street_number, logo } = request;
