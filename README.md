@@ -104,3 +104,5 @@ when put under a domain with `prefix`, it would look like:
 
     https://www.example.com/tickitz/api/users
  
+Documentation : [Postman Collection](https://documenter.getpostman.com/view/13687762/TzeTJp9W)
+ 
