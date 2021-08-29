@@ -1,12 +1,12 @@
 const midtransClient = require("midtrans-client");
+require("dotenv");
 
 const paymentController = {
-  chargeRequest: (req, res) => {
-    console.log(req, 'req')
+  chargeRequestGopay: (req, res) => {
     let core = new midtransClient.CoreApi({
       isProduction: false,
-      serverKey: "SB-Mid-server-e5_OvUPOJna-syKCpsdoBKLz",
-      clientKey: "SB-Mid-client-2zSi5A8VL9adkhsn",
+      serverKey: process.env.MIDTRANS_SERVER_KEY,
+      clientKey: process.env.MIDTRANS_CLIENT_KEY,
     });
 
     let parameter = {
@@ -17,7 +17,7 @@ const paymentController = {
       },
       gopay: {
         enable_callback: true, // optional
-        callback_url: `http://localhost:3000/gopay_success/${req.body.order_id}`, // optional
+        callback_url: `http://localhost:3000/payment_success`, // optional
       },
     };
 
