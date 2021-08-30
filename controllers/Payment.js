@@ -17,7 +17,7 @@ const paymentController = {
       },
       gopay: {
         enable_callback: true, // optional
-        callback_url: `http://localhost:3000/payment_success`, // optional
+        callback_url: `${process.env.REDIRECT_ORIGIN}/payment_success`, // optional
       },
     };
 
