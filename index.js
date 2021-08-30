@@ -15,6 +15,8 @@ let whitelist = [
   "http://localhost:6001",
   "http://tickitz.mooo.com",
   "https://tickitz.mooo.com",
+  "http://tickitz.rpetz.my.id",
+  "https://tickitz.rpetz.my.id",
 ];
 let corsOptions = {
   origin: function (origin, callback) {
