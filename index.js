@@ -5,8 +5,10 @@ const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const cors = require("cors");
 app.use(express.static("public"));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 let whitelist = [
   "http://localhost:3000",
   "http://54.205.45.185:3000",
@@ -25,6 +27,7 @@ let corsOptions = {
     }
   },
 };
+
 app.use(cors(corsOptions));
 const router = require("./routes");
 router(app, "/tickitz/api");

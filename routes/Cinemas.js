@@ -12,6 +12,8 @@ router.get('/all-cinema', cinemasController.getAllCinema)
 
 router.post('/', uploadLogo, cinemasController.addCinemas);
 
+router.get('/:id', cinemasController.getCinemaById)
+
 router.patch('/:id', uploadLogo, cinemasController.updateCinemas);
 
 router.delete('/:id', cinemasController.deleteCinemas)

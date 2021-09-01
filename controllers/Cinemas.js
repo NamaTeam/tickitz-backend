@@ -57,10 +57,24 @@ const cinemasController = {
       })
   },
 
+  getCinemaById: (req, res) => {
+    const request = {
+      id: req.params.id
+    }
+    cinemasModel
+      .getCinemaById(request)
+      .then((result) => {
+        res.status(result.statusCode).send(result)
+      })
+      .catch((err) => {
+        res.status(err.statusCode).send(err)
+      })
+  },
+
   addCinemas: async (req, res) => {
     const request = {
       ...req.body,
-      logo: `/upload/logos/${req.file.filename}`,
+      logo: req.file ? `/upload/logos/${req.file.filename}` : undefined,
     }
 
     try {
@@ -75,7 +89,7 @@ const cinemasController = {
     const request = {
       ...req.body,
       id: req.params.id,
-      logo: `/upload/logos/${req.file.filename}`,
+      logo: req.file ? `/upload/logos/${req.file.filename}` : undefined,
     }
 
     try {
